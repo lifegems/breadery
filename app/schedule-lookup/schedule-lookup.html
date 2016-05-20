@@ -1,8 +1,9 @@
 <ActionBar title="Lookup Reading"></ActionBar>
 
-<GridLayout rows="5*,*,*,3*">
+<GridLayout rows="6*,*,*,3*">
    <ScrollView row="0">
       <StackLayout>
+         <Label class="title" [text]="dtToday|date:'fullDate'"></Label>
          <Label class="reading" *ngFor="let reading of getReading()" [text]="reading.title" (tap)="goToURL(reading.url)"></Label>
       </StackLayout>
    </ScrollView>
@@ -17,6 +18,6 @@
       <Label text=""></Label>
    </DockLayout>
    
-   <Label *ngIf="blIsDateExpanded" row="2" class="h2" text="Choose a starting date"></Label>
+   <Label *ngIf="blIsDateExpanded" row="2" class="h2" text="Bible Reading Start Date"></Label>
    <DatePicker *ngIf="blIsDateExpanded" row="3" [(ngModel)]="bSelectedDate"></DatePicker>
 </GridLayout>

@@ -13,11 +13,12 @@ let utilModule  = require('utils/utils');
 })
 export class ScheduleLookupComponent {
    private bSelectedDate = new Date();
+   private dtToday = new Date();
    private aBibleBooks;
    private aSchedule;
    private aReading = [];
    private expand = true;
-   private blIsDateExpanded = true;
+   private blIsDateExpanded = false;
    
    constructor(private bible: BibleService, private schedule: SchedulesService) {
       this.bSelectedDate = this.getSavedStartDate();
@@ -29,8 +30,8 @@ export class ScheduleLookupComponent {
    
    getReading() {
       let intDays = this.getDaysSinceDate(this.bSelectedDate);
-      let intStart = (intDays > 0 && intDays < 366) ? intDays : 1;
-      let reading = this.schedule.getReadingForDay(intStart);
+      let intStart = (intDays >= 0 && intDays < 365) ? intDays : 0;
+      let reading = this.schedule.getReadingForDay(intStart + 1);
       let aReading = [];
       
       for (let i = 0; i < reading.length; i++) {
@@ -51,7 +52,7 @@ export class ScheduleLookupComponent {
       let oneDay = 24*60*60*1000;
       let dtToday = new Date();
       
-      return Math.round(Math.abs((dtToday.getTime()-dtDate.getTime())/oneDay));
+      return Math.round((dtToday.getTime()-dtDate.getTime())/oneDay);
    }
    
    getStatusDisplay() {
@@ -60,14 +61,10 @@ export class ScheduleLookupComponent {
       let strDisplay = "";
       let dtDiff = this.getDaysSinceDate(this.bSelectedDate);
       
-      if (dtDiff === 0) {
-         strDisplay = "Today is the first step!";
-      } else if (dtDiff === 1) {
-         let strDisplay = dtDiff + " day since you started.";
-      } else if (dtDiff > 365) {
-         strDisplay = "Please choose a date closer to today.";
+      if (dtDiff > 364 || dtDiff < 0) {
+         strDisplay = "Choose a closer date";
       } else {
-         strDisplay = dtDiff + " days since you started.";
+         strDisplay = "Day " + (dtDiff + 1);
       }
    
       return strDisplay;

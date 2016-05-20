@@ -10,9 +10,10 @@ var ScheduleLookupComponent = (function () {
         this.bible = bible;
         this.schedule = schedule;
         this.bSelectedDate = new Date();
+        this.dtToday = new Date();
         this.aReading = [];
         this.expand = true;
-        this.blIsDateExpanded = true;
+        this.blIsDateExpanded = false;
         this.bSelectedDate = this.getSavedStartDate();
         this.aBibleBooks = this.bible.getBibleBooks();
         this.aSchedule = this.schedule.getScheduleByID("001");
@@ -20,8 +21,8 @@ var ScheduleLookupComponent = (function () {
     }
     ScheduleLookupComponent.prototype.getReading = function () {
         var intDays = this.getDaysSinceDate(this.bSelectedDate);
-        var intStart = (intDays > 0 && intDays < 366) ? intDays : 1;
-        var reading = this.schedule.getReadingForDay(intStart);
+        var intStart = (intDays >= 0 && intDays < 365) ? intDays : 0;
+        var reading = this.schedule.getReadingForDay(intStart + 1);
         var aReading = [];
         for (var i = 0; i < reading.length; i++) {
             var RD = new reading_service_1.ReadingData(reading[i]);
@@ -38,23 +39,17 @@ var ScheduleLookupComponent = (function () {
     ScheduleLookupComponent.prototype.getDaysSinceDate = function (dtDate) {
         var oneDay = 24 * 60 * 60 * 1000;
         var dtToday = new Date();
-        return Math.round(Math.abs((dtToday.getTime() - dtDate.getTime()) / oneDay));
+        return Math.round((dtToday.getTime() - dtDate.getTime()) / oneDay);
     };
     ScheduleLookupComponent.prototype.getStatusDisplay = function () {
         this.saveStartDate(this.bSelectedDate);
         var strDisplay = "";
         var dtDiff = this.getDaysSinceDate(this.bSelectedDate);
-        if (dtDiff === 0) {
-            strDisplay = "Today is the first step!";
-        }
-        else if (dtDiff === 1) {
-            var strDisplay_1 = dtDiff + " day since you started.";
-        }
-        else if (dtDiff > 365) {
-            strDisplay = "Please choose a date closer to today.";
+        if (dtDiff > 364 || dtDiff < 0) {
+            strDisplay = "Choose a closer date";
         }
         else {
-            strDisplay = dtDiff + " days since you started.";
+            strDisplay = "Day " + (dtDiff + 1);
         }
         return strDisplay;
     };

@@ -25,6 +25,14 @@ DatePicker {
 }
 
 Button.expand {
-   background-color: white;
-   color: lightgreen;
+   font-size: 17;
+   width: 34;
+   height: 34;
+   border-radius: 17;
+   background-color: #efefef;
+   color: limegreen;
+}
+
+.title {
+   font-size: 24;
 }
