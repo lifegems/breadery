@@ -17,6 +17,7 @@ export class ScheduleLookupComponent {
    private aSchedule;
    private aReading = [];
    private expand = true;
+   private blIsDateExpanded = true;
    
    constructor(private bible: BibleService, private schedule: SchedulesService) {
       this.bSelectedDate = this.getSavedStartDate();
@@ -72,18 +73,12 @@ export class ScheduleLookupComponent {
       return strDisplay;
    }
    
-   isSavedDayToday() {
-      let intDays = (this.getDaysSinceDate(this.bSelectedDate));
-      return (intDays < 1) ? true : false;
-   }
-   
    getExpandIcon() {
-      return (this.isSavedDayToday()) ? String.fromCharCode(0xf078) : String.fromCharCode(0xf077);
+      return (this.blIsDateExpanded) ? String.fromCharCode(0xf078) : String.fromCharCode(0xf077);
    }
    
    expandDate() {
-      this.expand = !this.expand;
-      return this.expand;
+      this.blIsDateExpanded = !this.blIsDateExpanded;
    }
    
    getSavedStartDate() {

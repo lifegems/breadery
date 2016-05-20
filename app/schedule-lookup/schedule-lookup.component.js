@@ -12,6 +12,7 @@ var ScheduleLookupComponent = (function () {
         this.bSelectedDate = new Date();
         this.aReading = [];
         this.expand = true;
+        this.blIsDateExpanded = true;
         this.bSelectedDate = this.getSavedStartDate();
         this.aBibleBooks = this.bible.getBibleBooks();
         this.aSchedule = this.schedule.getScheduleByID("001");
@@ -57,16 +58,11 @@ var ScheduleLookupComponent = (function () {
         }
         return strDisplay;
     };
-    ScheduleLookupComponent.prototype.isSavedDayToday = function () {
-        var intDays = (this.getDaysSinceDate(this.bSelectedDate));
-        return (intDays < 1) ? true : false;
-    };
     ScheduleLookupComponent.prototype.getExpandIcon = function () {
-        return (this.isSavedDayToday()) ? String.fromCharCode(0xf078) : String.fromCharCode(0xf077);
+        return (this.blIsDateExpanded) ? String.fromCharCode(0xf078) : String.fromCharCode(0xf077);
     };
     ScheduleLookupComponent.prototype.expandDate = function () {
-        this.expand = !this.expand;
-        return this.expand;
+        this.blIsDateExpanded = !this.blIsDateExpanded;
     };
     ScheduleLookupComponent.prototype.getSavedStartDate = function () {
         var strDate = appSettings.getString('saveDate', "");
