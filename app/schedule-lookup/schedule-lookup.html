@@ -1,9 +1,13 @@
-<ActionBar title="Lookup Reading"></ActionBar>
+<ActionBar title="Test">
+   <StackLayout>
+      <Label class="pgTitle" text="Lookup Reading"></Label>
+      <Label class="pgSubTitle" [text]="dtToday|date:'fullDate'"></Label>
+   </StackLayout>
+</ActionBar>
 
 <GridLayout rows="6*,*,*,3*">
    <ScrollView row="0">
       <StackLayout>
-         <Label class="title" [text]="dtToday|date:'fullDate'"></Label>
          <Label class="reading" *ngFor="let reading of getReading()" [text]="reading.title" (tap)="goToURL(reading.url)"></Label>
       </StackLayout>
    </ScrollView>

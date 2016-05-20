@@ -26,3 +26,12 @@ button {
     text-align: center;
     margin: 0 20;
 }
+
+.pgTitle {
+   font-size: 21;
+   font-weight: bold;
+}
+
+.pgSubTitle {
+   font-size: 13;
+}
