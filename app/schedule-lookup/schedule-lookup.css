@@ -1,0 +1,30 @@
+.reading {
+   height: 60;
+   font-size: 24;
+   padding-left: 15;
+   color: limegreen;
+}
+
+.h2 {
+   font-size: 24;
+   color: darkgreen;
+   width: 100%;
+   text-align: center;
+   background-color: lightgray;
+   padding: 10;
+}
+
+DatePicker {
+   height: 200;
+   margin-bottom: 0;
+}
+
+.fullwidth {
+   width: 100%;
+   text-align: center;
+}
+
+Button.expand {
+   background-color: white;
+   color: lightgreen;
+}

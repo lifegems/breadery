@@ -1,0 +1,22 @@
+<ActionBar [title]="getPageTitle()">
+   <ActionItem ios.position="right" [text]="setSignInLabel()" [nsRouterLink]="['SignInComponent']"></ActionItem>
+</ActionBar>
+
+<TabView selectedIndex="0" selectedColor="green">
+   <StackLayout *tabItem="{title:'Dashboard'}">
+      <Label [text]="strTodaysDate|date:shortdate"></Label>
+      <ListView [items]='aReading' [height]="80 * aReading.length">
+         <template ngFor let-item [ngForOf]="aReading" let-i="index">
+            <DockLayout class="setting" (tap)="markReadingAsComplete(item)">
+               <Label dock="left" [text]="item.book + ' ' + item.chap+item.verse"></Label>
+               <Label dock="right" class="icon" [text]="getReadingStatusIcon(item)"></Label>
+               <Label text=""></Label>
+            </DockLayout>
+         </template>
+      </ListView>
+   </StackLayout>
+
+   <StackLayout *tabItem="{title: 'Settings'}" class="icon">
+      <setup-schedule></setup-schedule>
+   </StackLayout>
+</TabView>

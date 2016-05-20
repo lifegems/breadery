@@ -1,0 +1,16 @@
+<ActionBar title="Lookup Reading"></ActionBar>
+
+<GridLayout rows="5*,*,*,3*">
+   <ScrollView row="0">
+      <StackLayout>
+         <Label class="reading" dock="top" *ngFor="let reading of getReading()" [text]="reading.title" (tap)="goToURL(reading.url)"></Label>
+      </StackLayout>
+   </ScrollView>
+   <GridLayout class="bdTop" row="1" columns="*,3*,*">
+      <Button col="0" class="icon expand" [text]="" (tap)="expandDate()"></Button>
+      <Label col="1" class="fullwidth" [text]="getStatusDisplay()"></Label>
+   </GridLayout>
+   
+   <Label row="2" class="h2" dock="bottom" text="Choose a starting date"></Label>
+   <DatePicker row="3" dock="bottom" [(ngModel)]="bSelectedDate"></DatePicker>
+</GridLayout>

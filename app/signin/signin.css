@@ -1,0 +1,11 @@
+TextField {
+   height: 50;
+   margin: 5;
+   width: 95%;
+   padding: 3 10;
+   
+   border-radius: 3;
+   border-width: 0.5;
+   border-style: solid;
+   border-color: lightgray;
+}

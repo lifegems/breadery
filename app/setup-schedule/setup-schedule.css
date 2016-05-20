@@ -1,0 +1,12 @@
+DockLayout.setting {
+   height: 80;
+   padding: 0 10;
+}
+
+Button.warning {
+   background-color: red;
+}
+
+Button.disabled {
+   background-color: lightgray;
+}

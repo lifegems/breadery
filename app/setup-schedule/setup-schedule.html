@@ -1,0 +1,12 @@
+<StackLayout>
+   <ListView [items]='list' height="160">
+      <template ngFor let-item [ngForOf]="list" let-i="index">
+         <DockLayout class="setting" [nsRouterLink]="[item.route]">
+            <Label dock="left" [text]="item.name"></Label>
+            <Label dock="right" class="icon" text="&#xf054;"></Label>
+            <Label text=""></Label>
+         </DockLayout>
+      </template>
+   </ListView>
+   <Button text="Begin Schedule"></Button>
+</StackLayout>
