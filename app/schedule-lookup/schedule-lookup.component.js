@@ -48,6 +48,9 @@ var ScheduleLookupComponent = (function () {
         if (dtDiff > 364 || dtDiff < 0) {
             strDisplay = "Choose a closer date";
         }
+        else if (isNaN(dtDiff)) {
+            strDisplay = "Select a start date";
+        }
         else {
             strDisplay = "Day " + (dtDiff + 1);
         }
@@ -65,8 +68,12 @@ var ScheduleLookupComponent = (function () {
         return saveDate;
     };
     ScheduleLookupComponent.prototype.saveStartDate = function (dtDate) {
-        var saveDate = dtDate.toString();
-        appSettings.setString('saveDate', saveDate);
+        var savedDate = appSettings.getString('saveDate');
+        if (savedDate !== dtDate.toString()) {
+            console.log("TEST: " + dtDate.toString());
+            var newSavedDate = dtDate.toString();
+            appSettings.setString('saveDate', newSavedDate);
+        }
     };
     ScheduleLookupComponent = __decorate([
         core_1.Component({

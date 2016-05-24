@@ -63,6 +63,8 @@ export class ScheduleLookupComponent {
       
       if (dtDiff > 364 || dtDiff < 0) {
          strDisplay = "Choose a closer date";
+      } else if (isNaN(dtDiff)) {
+         strDisplay = "Select a start date";
       } else {
          strDisplay = "Day " + (dtDiff + 1);
       }
@@ -86,7 +88,11 @@ export class ScheduleLookupComponent {
    }
    
    saveStartDate(dtDate) {
-      let saveDate = dtDate.toString();
-      appSettings.setString('saveDate',saveDate);
+      let savedDate = appSettings.getString('saveDate');
+      if (savedDate !== dtDate.toString()) {
+         console.log("TEST: " + dtDate.toString());
+         let newSavedDate = dtDate.toString();
+         appSettings.setString('saveDate',newSavedDate);
+      }
    }
 }
