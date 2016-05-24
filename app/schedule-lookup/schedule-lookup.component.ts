@@ -2,14 +2,14 @@ import {Component} from "@angular/core";
 import {BibleService} from "./../bible/bible.service";
 import {SchedulesService} from "./../schedules/schedules.service";
 import {ReadingData} from "./../lib/reading.service";
+import {SettingsService} from "./../lib/settings.service";
 
-let appSettings = require('application-settings');
 let utilModule  = require('utils/utils');
 
 @Component({
    templateUrl: './schedule-lookup/schedule-lookup.html',
    styleUrls: ['app.css','schedule-lookup/schedule-lookup.css'],
-   providers: [BibleService,SchedulesService]
+   providers: [BibleService,SchedulesService,SettingsService]
 })
 export class ScheduleLookupComponent {
    private bSelectedDate = new Date();
@@ -20,7 +20,7 @@ export class ScheduleLookupComponent {
    private expand = true;
    private blIsDateExpanded = false;
    
-   constructor(private bible: BibleService, private schedule: SchedulesService) {
+   constructor(private bible: BibleService, private schedule: SchedulesService, private settings: SettingsService) {
       this.bSelectedDate = this.getSavedStartDate();
       this.aBibleBooks = this.bible.getBibleBooks();
       this.aSchedule = this.schedule.getScheduleByID("001");
@@ -81,18 +81,17 @@ export class ScheduleLookupComponent {
    }
    
    getSavedStartDate() {
-      let strDate = appSettings.getString('saveDate', "");
+      let strDate = this.settings.getSetting('saveDate');
       let saveDate = new Date(strDate);
       
       return saveDate;
    }
    
    saveStartDate(dtDate) {
-      let savedDate = appSettings.getString('saveDate');
+      let savedDate = this.settings.getSetting('saveDate');
       if (savedDate !== dtDate.toString()) {
-         console.log("TEST: " + dtDate.toString());
          let newSavedDate = dtDate.toString();
-         appSettings.setString('saveDate',newSavedDate);
+         this.settings.saveSetting('saveDate',newSavedDate);
       }
    }
 }

@@ -3,12 +3,13 @@ var core_1 = require("@angular/core");
 var bible_service_1 = require("./../bible/bible.service");
 var schedules_service_1 = require("./../schedules/schedules.service");
 var reading_service_1 = require("./../lib/reading.service");
-var appSettings = require('application-settings');
+var settings_service_1 = require("./../lib/settings.service");
 var utilModule = require('utils/utils');
 var ScheduleLookupComponent = (function () {
-    function ScheduleLookupComponent(bible, schedule) {
+    function ScheduleLookupComponent(bible, schedule, settings) {
         this.bible = bible;
         this.schedule = schedule;
+        this.settings = settings;
         this.bSelectedDate = new Date();
         this.dtToday = new Date();
         this.aReading = [];
@@ -63,25 +64,24 @@ var ScheduleLookupComponent = (function () {
         this.blIsDateExpanded = !this.blIsDateExpanded;
     };
     ScheduleLookupComponent.prototype.getSavedStartDate = function () {
-        var strDate = appSettings.getString('saveDate', "");
+        var strDate = this.settings.getSetting('saveDate');
         var saveDate = new Date(strDate);
         return saveDate;
     };
     ScheduleLookupComponent.prototype.saveStartDate = function (dtDate) {
-        var savedDate = appSettings.getString('saveDate');
+        var savedDate = this.settings.getSetting('saveDate');
         if (savedDate !== dtDate.toString()) {
-            console.log("TEST: " + dtDate.toString());
             var newSavedDate = dtDate.toString();
-            appSettings.setString('saveDate', newSavedDate);
+            this.settings.saveSetting('saveDate', newSavedDate);
         }
     };
     ScheduleLookupComponent = __decorate([
         core_1.Component({
             templateUrl: './schedule-lookup/schedule-lookup.html',
             styleUrls: ['app.css', 'schedule-lookup/schedule-lookup.css'],
-            providers: [bible_service_1.BibleService, schedules_service_1.SchedulesService]
+            providers: [bible_service_1.BibleService, schedules_service_1.SchedulesService, settings_service_1.SettingsService]
         }), 
-        __metadata('design:paramtypes', [bible_service_1.BibleService, schedules_service_1.SchedulesService])
+        __metadata('design:paramtypes', [bible_service_1.BibleService, schedules_service_1.SchedulesService, settings_service_1.SettingsService])
     ], ScheduleLookupComponent);
     return ScheduleLookupComponent;
 }());
