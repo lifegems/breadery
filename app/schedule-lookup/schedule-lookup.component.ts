@@ -1,4 +1,7 @@
 import {Component} from "@angular/core";
+import {NS_ROUTER_DIRECTIVES} from "nativescript-angular/router";
+import {SignInComponent} from "./../signin/signin.component";
+import {SignInService} from "./../signin/signin.service";
 import {BibleService} from "./../bible/bible.service";
 import {SchedulesService} from "./../schedules/schedules.service";
 import {ReadingData} from "./../lib/reading.service";
@@ -9,7 +12,8 @@ let utilModule  = require('utils/utils');
 @Component({
    templateUrl: './schedule-lookup/schedule-lookup.html',
    styleUrls: ['app.css','schedule-lookup/schedule-lookup.css'],
-   providers: [BibleService,SchedulesService,SettingsService]
+   directives: [SignInComponent,NS_ROUTER_DIRECTIVES],
+   providers: [BibleService,SchedulesService,SettingsService,SignInService]
 })
 export class ScheduleLookupComponent {
    private bSelectedDate = new Date();
@@ -20,7 +24,7 @@ export class ScheduleLookupComponent {
    private expand = true;
    private blIsDateExpanded = false;
    
-   constructor(private bible: BibleService, private schedule: SchedulesService, private settings: SettingsService) {
+   constructor(private bible: BibleService, private schedule: SchedulesService, private settings: SettingsService, private signin: SignInService) {
       this.bSelectedDate = this.getSavedStartDate();
       this.aBibleBooks = this.bible.getBibleBooks();
       this.aSchedule = this.schedule.getScheduleByID("001");

@@ -37,6 +37,9 @@ var SignInService = (function () {
         }
         return blDoesUserExist;
     };
+    SignInService.prototype.getActionItemText = function () {
+        return (this.isUserSignedIn()) ? "Sign Out" : "Sign In";
+    };
     SignInService.prototype.getUsers = function () {
         return http.getJSON(this.rooturl + this.key).then(function (d) {
             return d;

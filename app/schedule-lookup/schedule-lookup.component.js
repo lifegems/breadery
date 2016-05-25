@@ -1,15 +1,19 @@
 "use strict";
 var core_1 = require("@angular/core");
+var router_1 = require("nativescript-angular/router");
+var signin_component_1 = require("./../signin/signin.component");
+var signin_service_1 = require("./../signin/signin.service");
 var bible_service_1 = require("./../bible/bible.service");
 var schedules_service_1 = require("./../schedules/schedules.service");
 var reading_service_1 = require("./../lib/reading.service");
 var settings_service_1 = require("./../lib/settings.service");
 var utilModule = require('utils/utils');
 var ScheduleLookupComponent = (function () {
-    function ScheduleLookupComponent(bible, schedule, settings) {
+    function ScheduleLookupComponent(bible, schedule, settings, signin) {
         this.bible = bible;
         this.schedule = schedule;
         this.settings = settings;
+        this.signin = signin;
         this.bSelectedDate = new Date();
         this.dtToday = new Date();
         this.aReading = [];
@@ -79,9 +83,10 @@ var ScheduleLookupComponent = (function () {
         core_1.Component({
             templateUrl: './schedule-lookup/schedule-lookup.html',
             styleUrls: ['app.css', 'schedule-lookup/schedule-lookup.css'],
-            providers: [bible_service_1.BibleService, schedules_service_1.SchedulesService, settings_service_1.SettingsService]
+            directives: [signin_component_1.SignInComponent, router_1.NS_ROUTER_DIRECTIVES],
+            providers: [bible_service_1.BibleService, schedules_service_1.SchedulesService, settings_service_1.SettingsService, signin_service_1.SignInService]
         }), 
-        __metadata('design:paramtypes', [bible_service_1.BibleService, schedules_service_1.SchedulesService, settings_service_1.SettingsService])
+        __metadata('design:paramtypes', [bible_service_1.BibleService, schedules_service_1.SchedulesService, settings_service_1.SettingsService, signin_service_1.SignInService])
     ], ScheduleLookupComponent);
     return ScheduleLookupComponent;
 }());

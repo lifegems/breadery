@@ -1,8 +1,9 @@
-<ActionBar title="Test">
+<ActionBar title="Lookup Reading">
    <StackLayout>
       <Label class="pgTitle" text="Lookup Reading"></Label>
       <Label class="pgSubTitle" [text]="dtToday|date:'fullDate'"></Label>
    </StackLayout>
+   <ActionItem ios.position="right" [nsRouterLink]="['SignInComponent']" [text]="signin.getActionItemText()"></ActionItem>
 </ActionBar>
 
 <GridLayout rows="6*,*,*,3*">

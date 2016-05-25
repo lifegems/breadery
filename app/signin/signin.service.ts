@@ -45,6 +45,10 @@ export class SignInService {
       }
       return blDoesUserExist;
    }
+   
+   getActionItemText() {
+      return (this.isUserSignedIn()) ? "Sign Out" : "Sign In";
+   }
 
    getUsers() {
       return http.getJSON(this.rooturl + this.key).then(function(d) {

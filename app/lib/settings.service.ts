@@ -6,7 +6,10 @@ let appSettings = require('application-settings');
 export class SettingsService {
 
    public saveSetting(strSettingName: string, aSettingData: any): void {
-      appSettings.setString(strSettingName, aSettingData);
+      let oldSettingData = this.getSetting(strSettingName);
+      if (oldSettingData !== aSettingData) {
+         appSettings.setString(strSettingName, aSettingData);
+      }
    }
    
    public getSetting(strSettingName: string): string {

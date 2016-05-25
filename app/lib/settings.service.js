@@ -5,7 +5,10 @@ var SettingsService = (function () {
     function SettingsService() {
     }
     SettingsService.prototype.saveSetting = function (strSettingName, aSettingData) {
-        appSettings.setString(strSettingName, aSettingData);
+        var oldSettingData = this.getSetting(strSettingName);
+        if (oldSettingData !== aSettingData) {
+            appSettings.setString(strSettingName, aSettingData);
+        }
     };
     SettingsService.prototype.getSetting = function (strSettingName) {
         return appSettings.getString(strSettingName, "");
