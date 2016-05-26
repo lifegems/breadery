@@ -28,10 +28,6 @@ export class SignInComponent {
       this.signin.clearSavedUser();
    }
    
-   getPageName() {
-      return (this.isUserSignedIn()) ? 'Sign Out' : 'Sign In';
-   }
-   
    isUserSignedIn() {
       return this.signin.isUserSignedIn();
    }

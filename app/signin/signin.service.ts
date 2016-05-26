@@ -34,7 +34,7 @@ export class SignInService {
    }
    
    clearSavedUser() {
-      return true;
+      this.settings.clearSettings();
    }
    
    doesUserExist(strEmail, strPassword) {
@@ -63,6 +63,7 @@ export class SignInService {
       if (blDoesUserExist) {
          this.settings.saveSetting('strEmail', strEmail);
          this.settings.saveSetting('strPassword', strPassword);
+         this.settings.loadRemoteSettings(strEmail);
          return true;
       } else {
          return false;

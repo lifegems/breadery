@@ -25,6 +25,9 @@ export class ScheduleLookupComponent {
    private blIsDateExpanded = false;
    
    constructor(private bible: BibleService, private schedule: SchedulesService, private settings: SettingsService, private signin: SignInService) {
+      this.settings.removeSetting('intSettingsID');
+      this.settings.loadRemoteSettings(this.settings.getSetting('strEmail'));
+      
       this.bSelectedDate = this.getSavedStartDate();
       this.aBibleBooks = this.bible.getBibleBooks();
       this.aSchedule = this.schedule.getScheduleByID("001");
@@ -100,6 +103,6 @@ export class ScheduleLookupComponent {
    }
    
    syncDataWithCloud() {
-      alert("getting server info");
+      this.settings.loadRemoteSettings(this.signin.getSavedEmail());
    }
 }

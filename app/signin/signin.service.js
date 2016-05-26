@@ -26,7 +26,7 @@ var SignInService = (function () {
         });
     };
     SignInService.prototype.clearSavedUser = function () {
-        return true;
+        this.settings.clearSettings();
     };
     SignInService.prototype.doesUserExist = function (strEmail, strPassword) {
         var blDoesUserExist = false;
@@ -51,6 +51,7 @@ var SignInService = (function () {
         if (blDoesUserExist) {
             this.settings.saveSetting('strEmail', strEmail);
             this.settings.saveSetting('strPassword', strPassword);
+            this.settings.loadRemoteSettings(strEmail);
             return true;
         }
         else {

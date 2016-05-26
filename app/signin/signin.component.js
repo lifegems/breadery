@@ -22,9 +22,6 @@ var SignInComponent = (function () {
     SignInComponent.prototype.eSignOut = function () {
         this.signin.clearSavedUser();
     };
-    SignInComponent.prototype.getPageName = function () {
-        return (this.isUserSignedIn()) ? 'Sign Out' : 'Sign In';
-    };
     SignInComponent.prototype.isUserSignedIn = function () {
         return this.signin.isUserSignedIn();
     };

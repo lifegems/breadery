@@ -19,6 +19,8 @@ var ScheduleLookupComponent = (function () {
         this.aReading = [];
         this.expand = true;
         this.blIsDateExpanded = false;
+        this.settings.removeSetting('intSettingsID');
+        this.settings.loadRemoteSettings(this.settings.getSetting('strEmail'));
         this.bSelectedDate = this.getSavedStartDate();
         this.aBibleBooks = this.bible.getBibleBooks();
         this.aSchedule = this.schedule.getScheduleByID("001");
@@ -80,7 +82,7 @@ var ScheduleLookupComponent = (function () {
         }
     };
     ScheduleLookupComponent.prototype.syncDataWithCloud = function () {
-        alert("getting server info");
+        this.settings.loadRemoteSettings(this.signin.getSavedEmail());
     };
     ScheduleLookupComponent = __decorate([
         core_1.Component({

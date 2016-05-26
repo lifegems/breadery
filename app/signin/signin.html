@@ -1,4 +1,4 @@
-<ActionBar [title]="getPageName()"></ActionBar>
+<ActionBar title="Account Settings"></ActionBar>
 <StackLayout>
    
    <TextField *ngIf="!isUserSignedIn()" hint="Email Address" [(ngModel)]="bEmail" autocorrect="false" autocapitilization="none" keyboardType="email"></TextField>
