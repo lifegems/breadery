@@ -1,9 +1,14 @@
 <ActionBar title="Lookup Reading">
+   <ActionItem ios.position="left" (tap)="syncDataWithCloud()">
+      <Button class="icon" text="&#xf021;"></Button>
+   </ActionItem>
    <StackLayout>
       <Label class="pgTitle" text="Lookup Reading"></Label>
       <Label class="pgSubTitle" [text]="dtToday|date:'fullDate'"></Label>
    </StackLayout>
-   <ActionItem ios.position="right" [nsRouterLink]="['SignInComponent']" [text]="signin.getActionItemText()"></ActionItem>
+   <ActionItem ios.position="right" [nsRouterLink]="['SignInComponent']">
+      <Button class="icon" text="&#xf007;"></Button>
+   </ActionItem>
 </ActionBar>
 
 <GridLayout rows="6*,*,*,3*">

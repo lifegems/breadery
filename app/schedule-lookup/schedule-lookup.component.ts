@@ -98,4 +98,8 @@ export class ScheduleLookupComponent {
          this.settings.saveSetting('saveDate',newSavedDate);
       }
    }
+   
+   syncDataWithCloud() {
+      alert("getting server info");
+   }
 }

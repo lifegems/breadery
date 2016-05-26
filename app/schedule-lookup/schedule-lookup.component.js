@@ -79,6 +79,9 @@ var ScheduleLookupComponent = (function () {
             this.settings.saveSetting('saveDate', newSavedDate);
         }
     };
+    ScheduleLookupComponent.prototype.syncDataWithCloud = function () {
+        alert("getting server info");
+    };
     ScheduleLookupComponent = __decorate([
         core_1.Component({
             templateUrl: './schedule-lookup/schedule-lookup.html',

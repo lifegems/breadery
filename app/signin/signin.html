@@ -3,8 +3,8 @@
    
    <TextField *ngIf="!isUserSignedIn()" hint="Email Address" [(ngModel)]="bEmail" autocorrect="false" autocapitilization="none" keyboardType="email"></TextField>
    <TextField *ngIf="!isUserSignedIn()" hint="Password" secure="true" [(ngModel)]="bPassword"></TextField>
-   <Button *ngIf="!isUserSignedIn()" text="SIGN IN" (tap)='eSignIn()'></Button>
+   <Button class="main" *ngIf="!isUserSignedIn()" text="SIGN IN" (tap)='eSignIn()'></Button>
    
    <Label *ngIf="isUserSignedIn()" [text]="bEmail"></Label>
-   <Button *ngIf="isUserSignedIn()" text="SIGN OUT" (tap)='eSignOut()'></Button>
+   <Button class="main" *ngIf="isUserSignedIn()" text="SIGN OUT" (tap)='eSignOut()'></Button>
 </StackLayout>
