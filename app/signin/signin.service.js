@@ -1,12 +1,13 @@
 "use strict";
 var core_1 = require("@angular/core");
+var settings_service_1 = require("./../lib/settings.service");
 var http = require('http');
-var appSettings = require('application-settings');
 var SignInService = (function () {
     function SignInService() {
         var _this = this;
         this.rooturl = "https:/api.mlab.com/api/1/databases/lifegems/collections/Users";
         this.key = "?apiKey=CY73dQUZRrVfx3SWzj77PZ8QbCk-6ilZ";
+        this.settings = new settings_service_1.SettingsService();
         this.getUsers().then(function (users) { return _this.aUsers = users; });
     }
     SignInService.prototype.addUser = function (strUser, strPassword) {
@@ -25,7 +26,7 @@ var SignInService = (function () {
         });
     };
     SignInService.prototype.clearSavedUser = function () {
-        appSettings.clear();
+        return true;
     };
     SignInService.prototype.doesUserExist = function (strEmail, strPassword) {
         var blDoesUserExist = false;
@@ -48,8 +49,8 @@ var SignInService = (function () {
     SignInService.prototype.saveUserLocally = function (strEmail, strPassword) {
         var blDoesUserExist = this.doesUserExist(strEmail, strPassword);
         if (blDoesUserExist) {
-            appSettings.setString('strEmail', strEmail);
-            appSettings.setString('strPassword', strPassword);
+            this.settings.saveSetting('strEmail', strEmail);
+            this.settings.saveSetting('strPassword', strPassword);
             return true;
         }
         else {
@@ -60,10 +61,10 @@ var SignInService = (function () {
         return (this.getSavedEmail() !== "" || this.getSavedPassword() !== "");
     };
     SignInService.prototype.getSavedEmail = function () {
-        return appSettings.getString('strEmail', "");
+        return this.settings.getSetting('strEmail');
     };
     SignInService.prototype.getSavedPassword = function () {
-        return appSettings.getString('strPassword', "");
+        return this.settings.getSetting('strPassword');
     };
     SignInService = __decorate([
         core_1.Injectable(), 

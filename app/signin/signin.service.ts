@@ -1,15 +1,17 @@
 import {Injectable} from "@angular/core";
+import {SettingsService} from "./../lib/settings.service";
 
 let http = require('http');
-let appSettings = require('application-settings');
 
 @Injectable()
 export class SignInService {
    private rooturl = "https:/api.mlab.com/api/1/databases/lifegems/collections/Users";
    private key = "?apiKey=CY73dQUZRrVfx3SWzj77PZ8QbCk-6ilZ";
    private aUsers;
+   private settings;
    
    constructor() {
+      this.settings = new SettingsService();
       this.getUsers().then(
          users => this.aUsers = users
       );
@@ -32,7 +34,7 @@ export class SignInService {
    }
    
    clearSavedUser() {
-      appSettings.clear();
+      return true;
    }
    
    doesUserExist(strEmail, strPassword) {
@@ -59,8 +61,8 @@ export class SignInService {
    saveUserLocally(strEmail, strPassword) {
       let blDoesUserExist = this.doesUserExist(strEmail, strPassword);
       if (blDoesUserExist) {
-         appSettings.setString('strEmail', strEmail);
-         appSettings.setString('strPassword', strPassword);
+         this.settings.saveSetting('strEmail', strEmail);
+         this.settings.saveSetting('strPassword', strPassword);
          return true;
       } else {
          return false;
@@ -72,10 +74,10 @@ export class SignInService {
    }
    
    getSavedEmail() {
-      return appSettings.getString('strEmail', "");
+      return this.settings.getSetting('strEmail');
    }
    
    getSavedPassword() {
-      return appSettings.getString('strPassword', "");
+      return this.settings.getSetting('strPassword');
    }
 }
