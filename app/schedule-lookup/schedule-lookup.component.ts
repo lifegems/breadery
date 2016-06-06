@@ -26,14 +26,15 @@ export class ScheduleLookupComponent {
    private isSpinning = false;
    
    constructor(private bible: BibleService, private schedule: SchedulesService, private settings: SettingsService, private signin: SignInService) {
+      let vm = this;
       this.settings.removeSetting('intSettingsID');
-      this.settings.loadRemoteSettings(this.settings.getSetting('strEmail'));
-      
-      this.bSelectedDate = this.getSavedStartDate();
-      this.aBibleBooks = this.bible.getBibleBooks();
-      this.aSchedule = this.schedule.getScheduleByID("001");
-      
-      this.getReading();
+      this.syncDataWithCloud().then(function(d) {
+         vm.bSelectedDate = vm.getSavedStartDate();
+         vm.aBibleBooks = vm.bible.getBibleBooks();
+         vm.aSchedule = vm.schedule.getScheduleByID("001");
+
+         vm.getReading();
+      });
    }
    
    getReading() {
@@ -106,7 +107,7 @@ export class ScheduleLookupComponent {
    syncDataWithCloud() {
       let settings = this;
       settings.isSpinning = true;
-      this.settings.loadRemoteSettings(this.signin.getSavedEmail()).then(function() {
+      return this.settings.loadRemoteSettings(this.signin.getSavedEmail()).then(function() {
          settings.isSpinning = false;
       });
    }

@@ -20,12 +20,14 @@ var ScheduleLookupComponent = (function () {
         this.expand = true;
         this.blIsDateExpanded = false;
         this.isSpinning = false;
+        var vm = this;
         this.settings.removeSetting('intSettingsID');
-        this.settings.loadRemoteSettings(this.settings.getSetting('strEmail'));
-        this.bSelectedDate = this.getSavedStartDate();
-        this.aBibleBooks = this.bible.getBibleBooks();
-        this.aSchedule = this.schedule.getScheduleByID("001");
-        this.getReading();
+        this.syncDataWithCloud().then(function (d) {
+            vm.bSelectedDate = vm.getSavedStartDate();
+            vm.aBibleBooks = vm.bible.getBibleBooks();
+            vm.aSchedule = vm.schedule.getScheduleByID("001");
+            vm.getReading();
+        });
     }
     ScheduleLookupComponent.prototype.getReading = function () {
         var intDays = this.getDaysSinceDate(this.bSelectedDate);
@@ -85,7 +87,7 @@ var ScheduleLookupComponent = (function () {
     ScheduleLookupComponent.prototype.syncDataWithCloud = function () {
         var settings = this;
         settings.isSpinning = true;
-        this.settings.loadRemoteSettings(this.signin.getSavedEmail()).then(function () {
+        return this.settings.loadRemoteSettings(this.signin.getSavedEmail()).then(function () {
             settings.isSpinning = false;
         });
     };
