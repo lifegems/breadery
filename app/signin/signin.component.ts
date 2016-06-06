@@ -2,16 +2,18 @@ import {Component} from "@angular/core";
 import {Location} from "@angular/common";
 import {Router} from "@angular/router-deprecated";
 import {SignInService} from "./../signin/signin.service";
+import {SettingsService} from "./../lib/settings.service";
 
 @Component({
    templateUrl: "./signin/signin.html",
-   styleUrls: ["./app.css", "signin/signin.css"]
+   styleUrls: ["./app.css", "signin/signin.css"],
+   providers: [SettingsService]
 })
 export class SignInComponent {
    private bEmail;
    private bPassword;
    
-   constructor(private router: Router, private signin: SignInService, private location: Location) {
+   constructor(private router: Router, private signin: SignInService, private location: Location, private settings: SettingsService) {
       this.bEmail = this.signin.getSavedEmail();
       this.bPassword = this.signin.getSavedPassword();
    }
@@ -30,5 +32,9 @@ export class SignInComponent {
    
    isUserSignedIn() {
       return this.signin.isUserSignedIn();
+   }
+   
+   getSetting(strSettingName) {
+      return new Date(this.settings.getSetting(strSettingName));
    }
 }

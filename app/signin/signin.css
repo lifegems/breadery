@@ -1,4 +1,4 @@
-TextField {
+.settings--item {
    height: 50;
    margin: 5;
    width: 95%;
@@ -8,4 +8,12 @@ TextField {
    border-width: 0.5;
    border-style: solid;
    border-color: lightgray;
+}
+
+.settings--label {
+   padding-left: 10;
+   font-weight: bold;
+}
+.settings-value {
+   padding-right: 20;
 }
