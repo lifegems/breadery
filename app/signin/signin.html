@@ -1,6 +1,6 @@
 <ActionBar title="Account Settings"></ActionBar>
 <DockLayout stretchLastChild=false>
-   <StackLayout dock="top">
+   <StackLayout dock="top" modal-dialog-host>
       <TextField class="settings--item" *ngIf="!isUserSignedIn()" hint="Email Address" [(ngModel)]="bEmail" autocorrect="false" autocapitilization="none" keyboardType="email"></TextField>
       <TextField class="settings--item" *ngIf="!isUserSignedIn()" hint="Password" secure="true" [(ngModel)]="bPassword"></TextField>
       <Button class="main" *ngIf="!isUserSignedIn()" text="SIGN IN" (tap)='eSignIn()'></Button>
@@ -9,7 +9,7 @@
          <Label col="0" row="0" class="settings--label" text="EMAIL"></Label>
          <TextField col="1" row="0" class="settings--value" [text]="bEmail"></TextField>
       </GridLayout>
-      <GridLayout class="settings--item" columns="2*,3*" rows="*" *ngIf="isUserSignedIn()">
+      <GridLayout class="settings--item" columns="2*,3*" rows="*" *ngIf="isUserSignedIn()" (tap)="showScheduleSelector()">
          <Label col="0" row="0" class="settings--label" text="SCHEDULE"></Label>
          <Label col="1" row="0" class="settings--value" text="Chronological"></Label>
       </GridLayout>

@@ -3,17 +3,20 @@ import {Location} from "@angular/common";
 import {Router} from "@angular/router-deprecated";
 import {SignInService} from "./../signin/signin.service";
 import {SettingsService} from "./../lib/settings.service";
+import {ScheduleSelector} from "./../schedules/schedule-selector.component";
+import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/modal-dialog";
 
 @Component({
    templateUrl: "./signin/signin.html",
    styleUrls: ["./app.css", "signin/signin.css"],
-   providers: [SettingsService]
+   providers: [SettingsService, ModalDialogService],
+   directives: [ModalDialogHost,ScheduleSelector]
 })
 export class SignInComponent {
    private bEmail;
    private bPassword;
    
-   constructor(private router: Router, private signin: SignInService, private location: Location, private settings: SettingsService) {
+   constructor(private router: Router, private signin: SignInService, private location: Location, private settings: SettingsService, private modalService: ModalDialogService) {
       this.bEmail = this.signin.getSavedEmail();
       this.bPassword = this.signin.getSavedPassword();
    }
@@ -36,5 +39,9 @@ export class SignInComponent {
    
    getSetting(strSettingName) {
       return new Date(this.settings.getSetting(strSettingName));
+   }
+   
+   showScheduleSelector() {
+      this.modalService.showModal(ScheduleSelector, {});
    }
 }
