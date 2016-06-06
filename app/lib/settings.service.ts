@@ -35,12 +35,12 @@ export class SettingsService {
    public loadRemoteSettings(strEmail: string) {
       let settings = this;
       let url = "https://api.mlab.com/api/1/databases/lifegems/collections/Settings?apiKey=CY73dQUZRrVfx3SWzj77PZ8QbCk-6ilZ";
-      http.getJSON(url).then(function(aSettings){
+      return http.getJSON(url).then(function(aSettings){
          for (let i = 0; i < aSettings.length; i++) {
             if (settings.getSetting('intSettingsID') === "" && aSettings[i].user === strEmail) {
                settings.saveSetting('intSettingsID', aSettings[i]['_id']);
                settings.saveSetting('saveDate', aSettings[i]['settings']['saveDate']);
-               return true;
+               return aSettings[i];
             } else if (settings.getSetting('intSettingsID') !== "" && aSettings[i].user === strEmail) {
                let query = {
                   "_id": settings.getSetting('intSettingsID'),
@@ -49,22 +49,16 @@ export class SettingsService {
                      "saveDate": settings.getSetting('saveDate')
                   }
                };
-               http.request({
+               return http.request({
                   url: settings.rooturl + "/" + settings.getSetting('intSettingsID') + settings.key ,
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },
                   content: JSON.stringify(query)
                }).then(function(d) {
                   console.log(d);
-                  return d;
                });
-               return true;
-            } else {
-               return false;
             }
          }
       });
-      
-      
    }
 };

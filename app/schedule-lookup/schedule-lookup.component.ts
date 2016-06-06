@@ -23,6 +23,7 @@ export class ScheduleLookupComponent {
    private aReading = [];
    private expand = true;
    private blIsDateExpanded = false;
+   private isSpinning = false;
    
    constructor(private bible: BibleService, private schedule: SchedulesService, private settings: SettingsService, private signin: SignInService) {
       this.settings.removeSetting('intSettingsID');
@@ -103,6 +104,10 @@ export class ScheduleLookupComponent {
    }
    
    syncDataWithCloud() {
-      this.settings.loadRemoteSettings(this.signin.getSavedEmail());
+      let settings = this;
+      settings.isSpinning = true;
+      this.settings.loadRemoteSettings(this.signin.getSavedEmail()).then(function() {
+         settings.isSpinning = false;
+      });
    }
 }

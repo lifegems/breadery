@@ -36,3 +36,14 @@ Button.expand {
 .title {
    font-size: 24;
 }
+
+.spin {
+   animation-name: spin;
+   animation-duration: 2s;
+   animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+   from { transform: rotate(0); }
+   to { transform: rotate(180); }
+}

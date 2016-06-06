@@ -19,6 +19,7 @@ var ScheduleLookupComponent = (function () {
         this.aReading = [];
         this.expand = true;
         this.blIsDateExpanded = false;
+        this.isSpinning = false;
         this.settings.removeSetting('intSettingsID');
         this.settings.loadRemoteSettings(this.settings.getSetting('strEmail'));
         this.bSelectedDate = this.getSavedStartDate();
@@ -82,7 +83,11 @@ var ScheduleLookupComponent = (function () {
         }
     };
     ScheduleLookupComponent.prototype.syncDataWithCloud = function () {
-        this.settings.loadRemoteSettings(this.signin.getSavedEmail());
+        var settings = this;
+        settings.isSpinning = true;
+        this.settings.loadRemoteSettings(this.signin.getSavedEmail()).then(function () {
+            settings.isSpinning = false;
+        });
     };
     ScheduleLookupComponent = __decorate([
         core_1.Component({
