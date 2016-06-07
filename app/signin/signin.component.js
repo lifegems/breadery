@@ -59,6 +59,7 @@ var SignInComponent = (function () {
     SignInComponent.prototype.saveSettings = function () {
         var _this = this;
         this.settings.saveSetting('intScheduleID', this.SelectedSchedule.id);
+        this.settings.saveSetting('saveDate', JSON.stringify(new Date()));
         dialogs.alert("Settings Saved Successfully").then(function () { _this.location.back(); });
     };
     SignInComponent = __decorate([

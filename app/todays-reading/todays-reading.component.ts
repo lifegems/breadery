@@ -103,7 +103,7 @@ export class TodaysReadingComponent {
    
    loadReading() {
       this.aReading = [];
-      let reading = this.schedules.getReadingForDay(this.intReadingDay);
+      let reading = this.schedules.getReadingForDay("001", this.intReadingDay);
       let rp = new ReadingParser();
       for(let i = 0; i < reading.length; i++) {
          let RD = new ReadingData(reading[i]);

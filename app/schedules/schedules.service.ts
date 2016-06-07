@@ -66,9 +66,9 @@ export class SchedulesService {
       return blIsComplete;
    }
    
-   getReadingForDay(intReadingDay) {
+   getReadingForDay(intScheduleID, intReadingDay) {
       intReadingDay = this.formatAsString(intReadingDay);
-      let aSchedule = this.getScheduleByID("001");
+      let aSchedule = this.getScheduleByID(intScheduleID);
       for (let i = 0; i < aSchedule.length; i++) {
          if (aSchedule[i].ID === intReadingDay) {
             return aSchedule[i].Reading;
@@ -3153,6 +3153,16 @@ export class SchedulesService {
                "01010021032",
                "01011001026",
                "13001017027"
+            ]
+         },
+         {
+            "ID": "005",
+            "Reading": [
+               "01011027032",
+               "01012000",
+               "01013000",
+               "01014000",
+               "01015000"
             ]
          }
       ]

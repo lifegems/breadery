@@ -77,6 +77,7 @@ export class SignInComponent {
    
    saveSettings() {
       this.settings.saveSetting('intScheduleID', this.SelectedSchedule.id);
+      this.settings.saveSetting('saveDate', JSON.stringify(new Date()));
       dialogs.alert("Settings Saved Successfully").then(
          () => {this.location.back();}
       );

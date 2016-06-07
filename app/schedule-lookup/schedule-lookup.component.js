@@ -25,14 +25,14 @@ var ScheduleLookupComponent = (function () {
         this.syncDataWithCloud().then(function (d) {
             vm.bSelectedDate = vm.getSavedStartDate();
             vm.aBibleBooks = vm.bible.getBibleBooks();
-            vm.aSchedule = vm.schedule.getScheduleByID("001");
+            vm.aSchedule = vm.schedule.getScheduleByID(this.settings.getSetting('intScheduleID'));
             vm.getReading();
         });
     }
     ScheduleLookupComponent.prototype.getReading = function () {
         var intDays = this.getDaysSinceDate(this.bSelectedDate);
         var intStart = (intDays >= 0 && intDays < 365) ? intDays : 0;
-        var reading = this.schedule.getReadingForDay(intStart + 1);
+        var reading = this.schedule.getReadingForDay("002", intStart + 1);
         var aReading = [];
         for (var i = 0; i < reading.length; i++) {
             var RD = new reading_service_1.ReadingData(reading[i]);
@@ -55,7 +55,8 @@ var ScheduleLookupComponent = (function () {
         this.saveStartDate(this.bSelectedDate);
         var strDisplay = "";
         var dtDiff = this.getDaysSinceDate(this.bSelectedDate);
-        if (dtDiff > 364 || dtDiff < 0) {
+        var intMaxDays = (this.aSchedule) ? this.aSchedule.length : 0;
+        if (dtDiff >= intMaxDays || dtDiff < 0) {
             strDisplay = "Choose a closer date";
         }
         else if (isNaN(dtDiff)) {

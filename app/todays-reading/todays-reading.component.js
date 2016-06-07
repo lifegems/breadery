@@ -86,7 +86,7 @@ var TodaysReadingComponent = (function () {
     };
     TodaysReadingComponent.prototype.loadReading = function () {
         this.aReading = [];
-        var reading = this.schedules.getReadingForDay(this.intReadingDay);
+        var reading = this.schedules.getReadingForDay("001", this.intReadingDay);
         var rp = new ReadingParser();
         for (var i = 0; i < reading.length; i++) {
             var RD = new reading_service_1.ReadingData(reading[i]);

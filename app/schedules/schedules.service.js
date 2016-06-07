@@ -3071,6 +3071,16 @@ var SchedulesService = (function () {
                             "01011001026",
                             "13001017027"
                         ]
+                    },
+                    {
+                        "ID": "005",
+                        "Reading": [
+                            "01011027032",
+                            "01012000",
+                            "01013000",
+                            "01014000",
+                            "01015000"
+                        ]
                     }
                 ]
             },
@@ -3137,9 +3147,9 @@ var SchedulesService = (function () {
         }
         return blIsComplete;
     };
-    SchedulesService.prototype.getReadingForDay = function (intReadingDay) {
+    SchedulesService.prototype.getReadingForDay = function (intScheduleID, intReadingDay) {
         intReadingDay = this.formatAsString(intReadingDay);
-        var aSchedule = this.getScheduleByID("001");
+        var aSchedule = this.getScheduleByID(intScheduleID);
         for (var i = 0; i < aSchedule.length; i++) {
             if (aSchedule[i].ID === intReadingDay) {
                 return aSchedule[i].Reading;

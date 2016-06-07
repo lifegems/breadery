@@ -31,7 +31,7 @@ export class ScheduleLookupComponent {
       this.syncDataWithCloud().then(function(d) {
          vm.bSelectedDate = vm.getSavedStartDate();
          vm.aBibleBooks = vm.bible.getBibleBooks();
-         vm.aSchedule = vm.schedule.getScheduleByID("001");
+         vm.aSchedule = vm.schedule.getScheduleByID(this.settings.getSetting('intScheduleID'));
 
          vm.getReading();
       });
@@ -40,7 +40,7 @@ export class ScheduleLookupComponent {
    getReading() {
       let intDays = this.getDaysSinceDate(this.bSelectedDate);
       let intStart = (intDays >= 0 && intDays < 365) ? intDays : 0;
-      let reading = this.schedule.getReadingForDay(intStart + 1);
+      let reading = this.schedule.getReadingForDay("002", intStart + 1);
       let aReading = [];
       
       for (let i = 0; i < reading.length; i++) {
@@ -69,8 +69,8 @@ export class ScheduleLookupComponent {
       
       let strDisplay = "";
       let dtDiff = this.getDaysSinceDate(this.bSelectedDate);
-      
-      if (dtDiff > 364 || dtDiff < 0) {
+      let intMaxDays = (this.aSchedule) ? this.aSchedule.length : 0;
+      if (dtDiff >= intMaxDays || dtDiff < 0) {
          strDisplay = "Choose a closer date";
       } else if (isNaN(dtDiff)) {
          strDisplay = "Select a start date";
