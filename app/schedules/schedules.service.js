@@ -6,10 +6,11 @@ var SchedulesService = (function () {
     function SchedulesService() {
         this.rooturl = "https:/api.mlab.com/api/1/databases/lifegems/collections/Schedules";
         this.key = "?apiKey=CY73dQUZRrVfx3SWzj77PZ8QbCk-6ilZ";
-        this.aSchedules = [{
-                "ID": "001",
-                "Name": "Genesis to Revelation",
-                "Desc": "This schedule is the standard reading of Genesis to Revelation over the course of a year.",
+        this.aSchedules = [
+            {
+                "id": "001",
+                "title": "Cover to Cover",
+                "desc": "This schedule is the standard reading of Genesis to Revelation over the course of a year.",
                 "Schedule": [
                     {
                         "ID": "001",
@@ -3028,15 +3029,79 @@ var SchedulesService = (function () {
                         ]
                     }
                 ]
-            }];
+            },
+            {
+                "id": "002",
+                "title": "Chronologically Written",
+                "desc": "Read the bible in the order it was written.",
+                "Schedule": [
+                    {
+                        "ID": "001",
+                        "Reading": [
+                            "01001000",
+                            "01002000",
+                            "01003000"
+                        ]
+                    },
+                    {
+                        "ID": "002",
+                        "Reading": [
+                            "01004000",
+                            "01005000",
+                            "13001001004",
+                            "01006000"
+                        ]
+                    },
+                    {
+                        "ID": "003",
+                        "Reading": [
+                            "01007000",
+                            "01008000",
+                            "01009000"
+                        ]
+                    },
+                    {
+                        "ID": "004",
+                        "Reading": [
+                            "01010001005",
+                            "13001005007",
+                            "01010006020",
+                            "13001008016",
+                            "01010021032",
+                            "01011001026",
+                            "13001017027"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "003",
+                "title": "Chronological Events",
+                "desc": "Read the bible in the order the events took place according to history.",
+                "Schedule": []
+            },
+            {
+                "id": "004",
+                "title": "Thematic",
+                "desc": "Read various portions of the bible throughout the week according to themes such as Poetry, History, Law, Gospel, and so on.",
+                "Schedule": []
+            }
+        ];
     }
     SchedulesService.prototype.getSchedules = function () {
         return this.aSchedules;
     };
     SchedulesService.prototype.getScheduleByID = function (intScheduleID) {
         for (var i = 0; i < this.aSchedules.length; i++) {
-            if (this.aSchedules[i].ID === intScheduleID) {
+            if (this.aSchedules[i].id === intScheduleID) {
                 return this.aSchedules[i].Schedule;
+            }
+        }
+    };
+    SchedulesService.prototype.getScheduleInfoByID = function (intScheduleID) {
+        for (var i = 0; i < this.aSchedules.length; i++) {
+            if (this.aSchedules[i].id === intScheduleID) {
+                return this.aSchedules[i];
             }
         }
     };

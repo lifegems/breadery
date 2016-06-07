@@ -7,6 +7,13 @@ let http = require('http');
 export class SettingsService {
    private rooturl = "https:/api.mlab.com/api/1/databases/lifegems/collections/Settings";
    private key = "?apiKey=CY73dQUZRrVfx3SWzj77PZ8QbCk-6ilZ";
+   private aSettingKeys = [
+      "intSettingsID",
+      "strEmail",
+      "strPassword",
+      "intScheduleID",
+      "saveDate"
+   ];
 
    public saveSetting(strSettingName: string, aSettingData: any): void {
       let oldSettingData = this.getSetting(strSettingName);
@@ -16,10 +23,9 @@ export class SettingsService {
    }
    
    public clearSettings() {
-      appSettings.remove('intSettingsID');
-      appSettings.remove('strEmail');
-      appSettings.remove('strPassword');
-      appSettings.remove('saveDate');
+      for (let i = 0; i < this.aSettingKeys.length; i++) {
+         appSettings.remove(this.aSettingKeys[i]);
+      }
    }
    
    public removeSetting(strSettingName: string): void {

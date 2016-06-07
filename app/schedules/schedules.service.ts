@@ -14,8 +14,16 @@ export class SchedulesService {
    
    getScheduleByID(intScheduleID) {
       for (let i = 0; i < this.aSchedules.length; i++) {
-         if(this.aSchedules[i].ID === intScheduleID) {
+         if(this.aSchedules[i].id === intScheduleID) {
             return this.aSchedules[i].Schedule;
+         }
+      }
+   }
+   
+   getScheduleInfoByID(intScheduleID) {
+      for (let i = 0; i < this.aSchedules.length; i++) {
+         if(this.aSchedules[i].id === intScheduleID) {
+            return this.aSchedules[i];
          }
       }
    }
@@ -81,10 +89,11 @@ export class SchedulesService {
       return strNum;
    }
    
-   private aSchedules = [{
-       "ID": "001",
-       "Name": "Genesis to Revelation",
-       "Desc": "This schedule is the standard reading of Genesis to Revelation over the course of a year.",
+   private aSchedules = [
+      {
+       "id": "001",
+       "title": "Cover to Cover",
+       "desc": "This schedule is the standard reading of Genesis to Revelation over the course of a year.",
        "Schedule": [
            {
                "ID": "001",
@@ -3103,5 +3112,62 @@ export class SchedulesService {
                ]
            }
        ]
-   }];
+   },
+   {
+      "id": "002",
+      "title": "Chronologically Written",
+      "desc": "Read the bible in the order it was written.",
+      "Schedule": [
+         {
+            "ID": "001",
+            "Reading": [
+               "01001000",
+               "01002000",
+               "01003000"
+            ]
+         },
+         {
+            "ID": "002",
+            "Reading": [
+               "01004000",
+               "01005000",
+               "13001001004",
+               "01006000"
+            ]
+         },
+         {
+            "ID": "003",
+            "Reading": [
+               "01007000",
+               "01008000",
+               "01009000"
+            ]
+         },
+         {
+            "ID": "004",
+            "Reading": [
+               "01010001005",
+               "13001005007",
+               "01010006020",
+               "13001008016",
+               "01010021032",
+               "01011001026",
+               "13001017027"
+            ]
+         }
+      ]
+   },
+   {
+      "id": "003",
+      "title": "Chronological Events",
+      "desc": "Read the bible in the order the events took place according to history.",
+      "Schedule": []
+   },
+   {
+      "id": "004",
+      "title": "Thematic",
+      "desc": "Read various portions of the bible throughout the week according to themes such as Poetry, History, Law, Gospel, and so on.",
+      "Schedule": []
+   }
+   ];
 }

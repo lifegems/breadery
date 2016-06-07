@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { NS_ROUTER_DIRECTIVES } from "nativescript-angular/router";
 import {ModalDialogParams} from "nativescript-angular/modal-dialog";
+import {SchedulesService} from "./../schedules/schedules.service";
 
 let appSettings = require('application-settings');
  
@@ -19,9 +20,13 @@ let appSettings = require('application-settings');
  
  @Component({
    template: `
-   <StackLayout>
-      <Label class="title" text="Select a Schedule"></Label>
-      <ListView [items]='aSchedules' height="320">
+   <GridLayout rows="*, 2*, 6*, *">
+      <Label row="0" class="title" text="Select a Schedule"></Label>
+      <StackLayout row="1" class="highlightbox--blue">
+         <Label [text]="SelectedSchedule.title"></Label>
+         <TextView editable="false" class="bgd--blue" [text]="SelectedSchedule.desc"></TextView>
+      </StackLayout>
+      <ListView row="2" [items]='aSchedules' height="320">
          <template ngFor let-item [ngForOf]="aSchedules" let-i="index">
             <DockLayout class="setting" (tap)="selectSchedule(item)">
                <Label dock="left" [text]="item.title"></Label>
@@ -30,22 +35,20 @@ let appSettings = require('application-settings');
             </DockLayout>
          </template>
       </ListView>
-      <Button text="Choose Schedule" (tap)="close()"></Button>
-   </StackLayout>
+      <Button row="3" text="Choose Schedule" (tap)="close()"></Button>
+   </GridLayout>
    `,
+   providers: [SchedulesService],
    styleUrls: ["./app.css", "setup-schedule/setup-schedule.css"]
  })
  export class SelectScheduleComponent {
-   aSchedules = [
-      { id: 1, title: 'Chronological by Event', status: true },
-      { id: 2, title: 'Chronological by Time Written', status: false },
-      { id: 3, title: 'Cover to Cover', status: false },
-      { id: 4, title: 'Thematic', status: false }
-   ];
-   private SelectedSchedule = this.aSchedules[0];
+   private aSchedules = [];
+   private SelectedSchedule;
    
-   constructor(private params: ModalDialogParams) {
-   
+   constructor(private params: ModalDialogParams, private schedules: SchedulesService) {
+      this.aSchedules = this.schedules.getSchedules();
+      this.SelectedSchedule = this.schedules.getScheduleInfoByID(params.context.intScheduleID);
+      this.SelectedSchedule.status = true;
    }
    
    getStatusIcon(item) {

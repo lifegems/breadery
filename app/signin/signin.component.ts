@@ -3,8 +3,11 @@ import {Location} from "@angular/common";
 import {Router} from "@angular/router-deprecated";
 import {SignInService} from "./../signin/signin.service";
 import {SettingsService} from "./../lib/settings.service";
+import {SchedulesService} from "./../schedules/schedules.service";
 import {SelectScheduleComponent} from "./../setup-schedule/setup-schedule.component";
 import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/modal-dialog";
+
+let dialogs = require('ui/dialogs');
 
 @Component({
    templateUrl: "./signin/signin.html",
@@ -15,11 +18,29 @@ import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescr
 export class SignInComponent {
    private bEmail;
    private bPassword;
-   private SelectedSchedule = {id: 1, title: 'Not a Schedule'};
+   private SelectedSchedule;
    
-   constructor(private router: Router, private signin: SignInService, private location: Location, private settings: SettingsService, private modalService: ModalDialogService) {
+   constructor(
+      private router: Router, 
+      private signin: SignInService, 
+      private location: Location, 
+      private settings: SettingsService,
+      private schedules: SchedulesService,
+      private modalService: ModalDialogService
+   ) {
       this.bEmail = this.signin.getSavedEmail();
       this.bPassword = this.signin.getSavedPassword();
+      
+      if (this.settings.getSetting('intScheduleID') == "") {
+         this.SelectedSchedule = {
+            "id": "000",
+            "title": "Choose Schedule",
+            "desc": "",
+            "Schedule": []
+         };
+      } else {
+         this.SelectedSchedule = this.schedules.getScheduleInfoByID(this.settings.getSetting('intScheduleID'));
+      }
    }
    
    eSignIn() {
@@ -39,12 +60,25 @@ export class SignInComponent {
    }
    
    getSetting(strSettingName) {
-      return new Date(this.settings.getSetting(strSettingName));
+      return this.settings.getSetting(strSettingName);
+   }
+   
+   getSettingAsDate(strSettingName) {
+      return new Date(this.getSetting(strSettingName));
    }
    
    showScheduleSelector() {
-      this.modalService.showModal(SelectScheduleComponent, {}).then(
-         (Schedule) => { this.SelectedSchedule = Schedule; alert(Schedule) }
+      this.modalService.showModal(SelectScheduleComponent, {
+         context: {intScheduleID: this.settings.getSetting('intScheduleID')}
+      }).then(
+         (Schedule) => { this.SelectedSchedule = Schedule; }
       );
    }
+   
+   saveSettings() {
+      this.settings.saveSetting('intScheduleID', this.SelectedSchedule.id);
+      dialogs.alert("Settings Saved Successfully").then(
+         () => {this.location.back();}
+      );
+   }  
 }

@@ -6,6 +6,13 @@ var SettingsService = (function () {
     function SettingsService() {
         this.rooturl = "https:/api.mlab.com/api/1/databases/lifegems/collections/Settings";
         this.key = "?apiKey=CY73dQUZRrVfx3SWzj77PZ8QbCk-6ilZ";
+        this.aSettingKeys = [
+            "intSettingsID",
+            "strEmail",
+            "strPassword",
+            "intScheduleID",
+            "saveDate"
+        ];
     }
     SettingsService.prototype.saveSetting = function (strSettingName, aSettingData) {
         var oldSettingData = this.getSetting(strSettingName);
@@ -14,10 +21,9 @@ var SettingsService = (function () {
         }
     };
     SettingsService.prototype.clearSettings = function () {
-        appSettings.remove('intSettingsID');
-        appSettings.remove('strEmail');
-        appSettings.remove('strPassword');
-        appSettings.remove('saveDate');
+        for (var i = 0; i < this.aSettingKeys.length; i++) {
+            appSettings.remove(this.aSettingKeys[i]);
+        }
     };
     SettingsService.prototype.removeSetting = function (strSettingName) {
         if (appSettings.hasKey(strSettingName)) {

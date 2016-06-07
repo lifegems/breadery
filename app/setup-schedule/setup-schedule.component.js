@@ -2,6 +2,7 @@
 var core_1 = require("@angular/core");
 var router_1 = require("nativescript-angular/router");
 var modal_dialog_1 = require("nativescript-angular/modal-dialog");
+var schedules_service_1 = require("./../schedules/schedules.service");
 var appSettings = require('application-settings');
 var SetupScheduleComponent = (function () {
     function SetupScheduleComponent() {
@@ -23,15 +24,13 @@ var SetupScheduleComponent = (function () {
 }());
 exports.SetupScheduleComponent = SetupScheduleComponent;
 var SelectScheduleComponent = (function () {
-    function SelectScheduleComponent(params) {
+    function SelectScheduleComponent(params, schedules) {
         this.params = params;
-        this.aSchedules = [
-            { id: 1, title: 'Chronological by Event', status: true },
-            { id: 2, title: 'Chronological by Time Written', status: false },
-            { id: 3, title: 'Cover to Cover', status: false },
-            { id: 4, title: 'Thematic', status: false }
-        ];
-        this.SelectedSchedule = this.aSchedules[0];
+        this.schedules = schedules;
+        this.aSchedules = [];
+        this.aSchedules = this.schedules.getSchedules();
+        this.SelectedSchedule = this.schedules.getScheduleInfoByID(params.context.intScheduleID);
+        this.SelectedSchedule.status = true;
     }
     SelectScheduleComponent.prototype.getStatusIcon = function (item) {
         return (item.status) ? String.fromCharCode(0xf058) : String.fromCharCode(0xf10c);
@@ -48,10 +47,11 @@ var SelectScheduleComponent = (function () {
     };
     SelectScheduleComponent = __decorate([
         core_1.Component({
-            template: "\n   <StackLayout>\n      <Label class=\"title\" text=\"Select a Schedule\"></Label>\n      <ListView [items]='aSchedules' height=\"320\">\n         <template ngFor let-item [ngForOf]=\"aSchedules\" let-i=\"index\">\n            <DockLayout class=\"setting\" (tap)=\"selectSchedule(item)\">\n               <Label dock=\"left\" [text]=\"item.title\"></Label>\n               <Label dock=\"right\" class=\"icon\" [text]=\"getStatusIcon(item)\"></Label>\n               <Label text=\"\"></Label>\n            </DockLayout>\n         </template>\n      </ListView>\n      <Button text=\"Choose Schedule\" (tap)=\"close()\"></Button>\n   </StackLayout>\n   ",
+            template: "\n   <GridLayout rows=\"*, 2*, 6*, *\">\n      <Label row=\"0\" class=\"title\" text=\"Select a Schedule\"></Label>\n      <StackLayout row=\"1\" class=\"highlightbox--blue\">\n         <Label [text]=\"SelectedSchedule.title\"></Label>\n         <TextView editable=\"false\" class=\"bgd--blue\" [text]=\"SelectedSchedule.desc\"></TextView>\n      </StackLayout>\n      <ListView row=\"2\" [items]='aSchedules' height=\"320\">\n         <template ngFor let-item [ngForOf]=\"aSchedules\" let-i=\"index\">\n            <DockLayout class=\"setting\" (tap)=\"selectSchedule(item)\">\n               <Label dock=\"left\" [text]=\"item.title\"></Label>\n               <Label dock=\"right\" class=\"icon\" [text]=\"getStatusIcon(item)\"></Label>\n               <Label text=\"\"></Label>\n            </DockLayout>\n         </template>\n      </ListView>\n      <Button row=\"3\" text=\"Choose Schedule\" (tap)=\"close()\"></Button>\n   </GridLayout>\n   ",
+            providers: [schedules_service_1.SchedulesService],
             styleUrls: ["./app.css", "setup-schedule/setup-schedule.css"]
         }), 
-        __metadata('design:paramtypes', [modal_dialog_1.ModalDialogParams])
+        __metadata('design:paramtypes', [modal_dialog_1.ModalDialogParams, schedules_service_1.SchedulesService])
     ], SelectScheduleComponent);
     return SelectScheduleComponent;
 }());

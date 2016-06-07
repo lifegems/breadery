@@ -15,3 +15,14 @@ Button.disabled {
    font-size: 18;
    font-weight: bold;
 }
+
+.highlightbox--blue {
+   width: 90%;
+   background-color: lightblue;
+   padding: 10;
+   margin: 10;
+}
+
+.bgd--blue {
+   background-color: lightblue;
+}

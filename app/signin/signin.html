@@ -15,9 +15,9 @@
       </GridLayout>
       <GridLayout class="settings--item" columns="2*,3*" rows="*" *ngIf="isUserSignedIn()">
          <Label col="0" row="0" class="settings--label" text="START DATE"></Label>
-         <Label col="1" row="0" class="settings--value" [text]="getSetting('saveDate')|date:shortDate"></Label>
+         <Label col="1" row="0" class="settings--value" [text]="getSettingAsDate('saveDate')|date:shortDate"></Label>
       </GridLayout>
-      <Button dock="bottom" class="main" *ngIf="isUserSignedIn()" text="SAVE SETTINGS"></Button>
+      <Button dock="bottom" class="main" *ngIf="isUserSignedIn()" text="SAVE SETTINGS" (tap)="saveSettings()"></Button>
       <Button dock="bottom" *ngIf="isUserSignedIn()" text="SIGN OUT" (tap)='eSignOut()'></Button>
    </StackLayout>
 </DockLayout>
