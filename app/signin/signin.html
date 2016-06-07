@@ -11,7 +11,7 @@
       </GridLayout>
       <GridLayout class="settings--item" columns="2*,3*" rows="*" *ngIf="isUserSignedIn()" (tap)="showScheduleSelector()">
          <Label col="0" row="0" class="settings--label" text="SCHEDULE"></Label>
-         <Label col="1" row="0" class="settings--value" text="Chronological"></Label>
+         <Label col="1" row="0" class="settings--value" [text]="SelectedSchedule.title"></Label>
       </GridLayout>
       <GridLayout class="settings--item" columns="2*,3*" rows="*" *ngIf="isUserSignedIn()">
          <Label col="0" row="0" class="settings--label" text="START DATE"></Label>

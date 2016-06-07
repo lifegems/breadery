@@ -1,6 +1,7 @@
 "use strict";
 var core_1 = require("@angular/core");
 var router_1 = require("nativescript-angular/router");
+var modal_dialog_1 = require("nativescript-angular/modal-dialog");
 var appSettings = require('application-settings');
 var SetupScheduleComponent = (function () {
     function SetupScheduleComponent() {
@@ -22,13 +23,15 @@ var SetupScheduleComponent = (function () {
 }());
 exports.SetupScheduleComponent = SetupScheduleComponent;
 var SelectScheduleComponent = (function () {
-    function SelectScheduleComponent() {
+    function SelectScheduleComponent(params) {
+        this.params = params;
         this.aSchedules = [
-            { name: 'Chronological by Event', status: true },
-            { name: 'Chronological by Time Written', status: false },
-            { name: 'Cover to Cover', status: false },
-            { name: 'Thematic', status: false }
+            { id: 1, title: 'Chronological by Event', status: true },
+            { id: 2, title: 'Chronological by Time Written', status: false },
+            { id: 3, title: 'Cover to Cover', status: false },
+            { id: 4, title: 'Thematic', status: false }
         ];
+        this.SelectedSchedule = this.aSchedules[0];
     }
     SelectScheduleComponent.prototype.getStatusIcon = function (item) {
         return (item.status) ? String.fromCharCode(0xf058) : String.fromCharCode(0xf10c);
@@ -38,13 +41,17 @@ var SelectScheduleComponent = (function () {
             this.aSchedules[i].status = false;
         }
         item.status = true;
+        this.SelectedSchedule = item;
+    };
+    SelectScheduleComponent.prototype.close = function () {
+        this.params.closeCallback(this.SelectedSchedule);
     };
     SelectScheduleComponent = __decorate([
         core_1.Component({
-            template: "\n   <ActionBar title=\"Select Schedule\"></ActionBar>\n   \n   <StackLayout>\n      <ListView [items]='aSchedules' height=\"320\">\n         <template ngFor let-item [ngForOf]=\"aSchedules\" let-i=\"index\">\n            <DockLayout class=\"setting\" (tap)=\"selectSchedule(item)\">\n               <Label dock=\"left\" [text]=\"item.name\"></Label>\n               <Label dock=\"right\" class=\"icon\" [text]=\"getStatusIcon(item)\"></Label>\n               <Label text=\"\"></Label>\n            </DockLayout>\n         </template>\n      </ListView>\n      <Button text=\"Save Schedule\"></Button>\n   </StackLayout>\n   ",
+            template: "\n   <StackLayout>\n      <Label class=\"title\" text=\"Select a Schedule\"></Label>\n      <ListView [items]='aSchedules' height=\"320\">\n         <template ngFor let-item [ngForOf]=\"aSchedules\" let-i=\"index\">\n            <DockLayout class=\"setting\" (tap)=\"selectSchedule(item)\">\n               <Label dock=\"left\" [text]=\"item.title\"></Label>\n               <Label dock=\"right\" class=\"icon\" [text]=\"getStatusIcon(item)\"></Label>\n               <Label text=\"\"></Label>\n            </DockLayout>\n         </template>\n      </ListView>\n      <Button text=\"Choose Schedule\" (tap)=\"close()\"></Button>\n   </StackLayout>\n   ",
             styleUrls: ["./app.css", "setup-schedule/setup-schedule.css"]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [modal_dialog_1.ModalDialogParams])
     ], SelectScheduleComponent);
     return SelectScheduleComponent;
 }());

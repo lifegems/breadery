@@ -5,6 +5,7 @@ var router_deprecated_1 = require("@angular/router-deprecated");
 var signin_service_1 = require("./../signin/signin.service");
 var settings_service_1 = require("./../lib/settings.service");
 var schedule_selector_component_1 = require("./../schedules/schedule-selector.component");
+var setup_schedule_component_1 = require("./../setup-schedule/setup-schedule.component");
 var modal_dialog_1 = require("nativescript-angular/modal-dialog");
 var SignInComponent = (function () {
     function SignInComponent(router, signin, location, settings, modalService) {
@@ -13,6 +14,7 @@ var SignInComponent = (function () {
         this.location = location;
         this.settings = settings;
         this.modalService = modalService;
+        this.SelectedSchedule = { id: 1, title: 'Not a Schedule' };
         this.bEmail = this.signin.getSavedEmail();
         this.bPassword = this.signin.getSavedPassword();
     }
@@ -34,7 +36,8 @@ var SignInComponent = (function () {
         return new Date(this.settings.getSetting(strSettingName));
     };
     SignInComponent.prototype.showScheduleSelector = function () {
-        this.modalService.showModal(schedule_selector_component_1.ScheduleSelector, {});
+        var _this = this;
+        this.modalService.showModal(setup_schedule_component_1.SelectScheduleComponent, {}).then(function (Schedule) { _this.SelectedSchedule = Schedule; alert(Schedule); });
     };
     SignInComponent = __decorate([
         core_1.Component({

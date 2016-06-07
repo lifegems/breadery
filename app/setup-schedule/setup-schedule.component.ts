@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { NS_ROUTER_DIRECTIVES } from "nativescript-angular/router";
+import {ModalDialogParams} from "nativescript-angular/modal-dialog";
+
 let appSettings = require('application-settings');
  
  @Component({
@@ -17,30 +19,34 @@ let appSettings = require('application-settings');
  
  @Component({
    template: `
-   <ActionBar title="Select Schedule"></ActionBar>
-   
    <StackLayout>
+      <Label class="title" text="Select a Schedule"></Label>
       <ListView [items]='aSchedules' height="320">
          <template ngFor let-item [ngForOf]="aSchedules" let-i="index">
             <DockLayout class="setting" (tap)="selectSchedule(item)">
-               <Label dock="left" [text]="item.name"></Label>
+               <Label dock="left" [text]="item.title"></Label>
                <Label dock="right" class="icon" [text]="getStatusIcon(item)"></Label>
                <Label text=""></Label>
             </DockLayout>
          </template>
       </ListView>
-      <Button text="Save Schedule"></Button>
+      <Button text="Choose Schedule" (tap)="close()"></Button>
    </StackLayout>
    `,
    styleUrls: ["./app.css", "setup-schedule/setup-schedule.css"]
  })
  export class SelectScheduleComponent {
    aSchedules = [
-      { name: 'Chronological by Event', status: true },
-      { name: 'Chronological by Time Written', status: false },
-      { name: 'Cover to Cover', status: false },
-      { name: 'Thematic', status: false }
+      { id: 1, title: 'Chronological by Event', status: true },
+      { id: 2, title: 'Chronological by Time Written', status: false },
+      { id: 3, title: 'Cover to Cover', status: false },
+      { id: 4, title: 'Thematic', status: false }
    ];
+   private SelectedSchedule = this.aSchedules[0];
+   
+   constructor(private params: ModalDialogParams) {
+   
+   }
    
    getStatusIcon(item) {
       return (item.status) ? String.fromCharCode(0xf058) : String.fromCharCode(0xf10c);
@@ -51,6 +57,11 @@ let appSettings = require('application-settings');
          this.aSchedules[i].status = false;
       }
       item.status = true;
+      this.SelectedSchedule = item;
+   }
+   
+   public close() {
+      this.params.closeCallback(this.SelectedSchedule);
    }
 }
  

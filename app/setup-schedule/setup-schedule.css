@@ -10,3 +10,8 @@ Button.warning {
 Button.disabled {
    background-color: lightgray;
 }
+
+.title {
+   font-size: 18;
+   font-weight: bold;
+}

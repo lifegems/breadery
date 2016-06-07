@@ -4,6 +4,7 @@ import {Router} from "@angular/router-deprecated";
 import {SignInService} from "./../signin/signin.service";
 import {SettingsService} from "./../lib/settings.service";
 import {ScheduleSelector} from "./../schedules/schedule-selector.component";
+import {SelectScheduleComponent} from "./../setup-schedule/setup-schedule.component";
 import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/modal-dialog";
 
 @Component({
@@ -15,6 +16,7 @@ import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescr
 export class SignInComponent {
    private bEmail;
    private bPassword;
+   private SelectedSchedule = {id: 1, title: 'Not a Schedule'};
    
    constructor(private router: Router, private signin: SignInService, private location: Location, private settings: SettingsService, private modalService: ModalDialogService) {
       this.bEmail = this.signin.getSavedEmail();
@@ -42,6 +44,8 @@ export class SignInComponent {
    }
    
    showScheduleSelector() {
-      this.modalService.showModal(ScheduleSelector, {});
+      this.modalService.showModal(SelectScheduleComponent, {}).then(
+         (Schedule) => { this.SelectedSchedule = Schedule; alert(Schedule) }
+      );
    }
 }
