@@ -41,6 +41,7 @@ var SettingsService = (function () {
                 if (settings.getSetting('intSettingsID') === "" && aSettings[i].user === strEmail) {
                     settings.saveSetting('intSettingsID', aSettings[i]['_id']);
                     settings.saveSetting('saveDate', aSettings[i]['settings']['saveDate']);
+                    settings.saveSetting('intScheduleID', aSettings[i]['settings']['intScheduleID']);
                     return aSettings[i];
                 }
                 else if (settings.getSetting('intSettingsID') !== "" && aSettings[i].user === strEmail) {
@@ -48,7 +49,8 @@ var SettingsService = (function () {
                         "_id": settings.getSetting('intSettingsID'),
                         "user": strEmail,
                         "settings": {
-                            "saveDate": settings.getSetting('saveDate')
+                            "saveDate": settings.getSetting('saveDate'),
+                            "intScheduleID": settings.getSetting('intScheduleID')
                         }
                     };
                     return http.request({

@@ -31,7 +31,7 @@ export class ScheduleLookupComponent {
       this.syncDataWithCloud().then(function(d) {
          vm.bSelectedDate = vm.getSavedStartDate();
          vm.aBibleBooks = vm.bible.getBibleBooks();
-         vm.aSchedule = vm.schedule.getScheduleByID(this.settings.getSetting('intScheduleID'));
+         vm.aSchedule = vm.schedule.getScheduleByID(vm.settings.getSetting('intScheduleID'));
 
          vm.getReading();
       });
@@ -40,7 +40,7 @@ export class ScheduleLookupComponent {
    getReading() {
       let intDays = this.getDaysSinceDate(this.bSelectedDate);
       let intStart = (intDays >= 0 && intDays < 365) ? intDays : 0;
-      let reading = this.schedule.getReadingForDay("002", intStart + 1);
+      let reading = this.schedule.getReadingForDay(this.settings.getSetting('intScheduleID'), intStart + 1);
       let aReading = [];
       
       for (let i = 0; i < reading.length; i++) {
