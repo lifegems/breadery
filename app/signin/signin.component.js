@@ -4,7 +4,6 @@ var common_1 = require("@angular/common");
 var router_deprecated_1 = require("@angular/router-deprecated");
 var signin_service_1 = require("./../signin/signin.service");
 var settings_service_1 = require("./../lib/settings.service");
-var schedule_selector_component_1 = require("./../schedules/schedule-selector.component");
 var setup_schedule_component_1 = require("./../setup-schedule/setup-schedule.component");
 var modal_dialog_1 = require("nativescript-angular/modal-dialog");
 var SignInComponent = (function () {
@@ -44,7 +43,7 @@ var SignInComponent = (function () {
             templateUrl: "./signin/signin.html",
             styleUrls: ["./app.css", "signin/signin.css"],
             providers: [settings_service_1.SettingsService, modal_dialog_1.ModalDialogService],
-            directives: [modal_dialog_1.ModalDialogHost, schedule_selector_component_1.ScheduleSelector]
+            directives: [modal_dialog_1.ModalDialogHost]
         }), 
         __metadata('design:paramtypes', [router_deprecated_1.Router, signin_service_1.SignInService, common_1.Location, settings_service_1.SettingsService, modal_dialog_1.ModalDialogService])
     ], SignInComponent);

@@ -3,7 +3,6 @@ import {Location} from "@angular/common";
 import {Router} from "@angular/router-deprecated";
 import {SignInService} from "./../signin/signin.service";
 import {SettingsService} from "./../lib/settings.service";
-import {ScheduleSelector} from "./../schedules/schedule-selector.component";
 import {SelectScheduleComponent} from "./../setup-schedule/setup-schedule.component";
 import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescript-angular/modal-dialog";
 
@@ -11,7 +10,7 @@ import {ModalDialogService, ModalDialogOptions, ModalDialogHost} from "nativescr
    templateUrl: "./signin/signin.html",
    styleUrls: ["./app.css", "signin/signin.css"],
    providers: [SettingsService, ModalDialogService],
-   directives: [ModalDialogHost,ScheduleSelector]
+   directives: [ModalDialogHost]
 })
 export class SignInComponent {
    private bEmail;
