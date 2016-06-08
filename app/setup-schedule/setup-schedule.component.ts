@@ -21,7 +21,10 @@ let appSettings = require('application-settings');
  @Component({
    template: `
    <GridLayout rows="*, 2*, 6*, *">
-      <Label row="0" class="title" text="Select a Schedule"></Label>
+      <GridLayout columns="*,3*,*" row="0">
+         <Button col="0" text="Cancel" (tap)="close('Cancel')"></Button>
+         <Label col="1" class="title" text="Select a Schedule"></Label>
+      </GridLayout>
       <StackLayout row="1" class="highlightbox--blue">
          <Label [text]="SelectedSchedule.title"></Label>
          <TextView editable="false" class="bgd--blue" [text]="SelectedSchedule.desc"></TextView>
@@ -35,7 +38,7 @@ let appSettings = require('application-settings');
             </DockLayout>
          </template>
       </ListView>
-      <Button row="3" text="Choose Schedule" (tap)="close()"></Button>
+      <Button row="3" text="Choose Schedule" (tap)="close('OK')"></Button>
    </GridLayout>
    `,
    providers: [SchedulesService],
@@ -63,8 +66,12 @@ let appSettings = require('application-settings');
       this.SelectedSchedule = item;
    }
    
-   public close() {
-      this.params.closeCallback(this.SelectedSchedule);
+   public close(result) {
+      if (result == "OK") {
+         this.params.closeCallback(this.SelectedSchedule);
+      } else {
+         this.params.closeCallback('Cancel');
+      }
    }
 }
  

@@ -53,8 +53,12 @@ var SignInComponent = (function () {
     SignInComponent.prototype.showScheduleSelector = function () {
         var _this = this;
         this.modalService.showModal(setup_schedule_component_1.SelectScheduleComponent, {
-            context: { intScheduleID: this.settings.getSetting('intScheduleID') }
-        }).then(function (Schedule) { _this.SelectedSchedule = Schedule; });
+            context: { intScheduleID: this.SelectedSchedule.id }
+        }).then(function (result) {
+            if (result !== "Cancel") {
+                _this.SelectedSchedule = result;
+            }
+        });
     };
     SignInComponent.prototype.saveSettings = function () {
         var _this = this;

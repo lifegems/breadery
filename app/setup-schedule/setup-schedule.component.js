@@ -42,12 +42,17 @@ var SelectScheduleComponent = (function () {
         item.status = true;
         this.SelectedSchedule = item;
     };
-    SelectScheduleComponent.prototype.close = function () {
-        this.params.closeCallback(this.SelectedSchedule);
+    SelectScheduleComponent.prototype.close = function (result) {
+        if (result == "OK") {
+            this.params.closeCallback(this.SelectedSchedule);
+        }
+        else {
+            this.params.closeCallback('Cancel');
+        }
     };
     SelectScheduleComponent = __decorate([
         core_1.Component({
-            template: "\n   <GridLayout rows=\"*, 2*, 6*, *\">\n      <Label row=\"0\" class=\"title\" text=\"Select a Schedule\"></Label>\n      <StackLayout row=\"1\" class=\"highlightbox--blue\">\n         <Label [text]=\"SelectedSchedule.title\"></Label>\n         <TextView editable=\"false\" class=\"bgd--blue\" [text]=\"SelectedSchedule.desc\"></TextView>\n      </StackLayout>\n      <ListView row=\"2\" [items]='aSchedules' height=\"320\">\n         <template ngFor let-item [ngForOf]=\"aSchedules\" let-i=\"index\">\n            <DockLayout class=\"setting\" (tap)=\"selectSchedule(item)\">\n               <Label dock=\"left\" [text]=\"item.title\"></Label>\n               <Label dock=\"right\" class=\"icon\" [text]=\"getStatusIcon(item)\"></Label>\n               <Label text=\"\"></Label>\n            </DockLayout>\n         </template>\n      </ListView>\n      <Button row=\"3\" text=\"Choose Schedule\" (tap)=\"close()\"></Button>\n   </GridLayout>\n   ",
+            template: "\n   <GridLayout rows=\"*, 2*, 6*, *\">\n      <GridLayout columns=\"*,3*,*\" row=\"0\">\n         <Button col=\"0\" text=\"Cancel\" (tap)=\"close('Cancel')\"></Button>\n         <Label col=\"1\" class=\"title\" text=\"Select a Schedule\"></Label>\n      </GridLayout>\n      <StackLayout row=\"1\" class=\"highlightbox--blue\">\n         <Label [text]=\"SelectedSchedule.title\"></Label>\n         <TextView editable=\"false\" class=\"bgd--blue\" [text]=\"SelectedSchedule.desc\"></TextView>\n      </StackLayout>\n      <ListView row=\"2\" [items]='aSchedules' height=\"320\">\n         <template ngFor let-item [ngForOf]=\"aSchedules\" let-i=\"index\">\n            <DockLayout class=\"setting\" (tap)=\"selectSchedule(item)\">\n               <Label dock=\"left\" [text]=\"item.title\"></Label>\n               <Label dock=\"right\" class=\"icon\" [text]=\"getStatusIcon(item)\"></Label>\n               <Label text=\"\"></Label>\n            </DockLayout>\n         </template>\n      </ListView>\n      <Button row=\"3\" text=\"Choose Schedule\" (tap)=\"close('OK')\"></Button>\n   </GridLayout>\n   ",
             providers: [schedules_service_1.SchedulesService],
             styleUrls: ["./app.css", "setup-schedule/setup-schedule.css"]
         }), 

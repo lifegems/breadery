@@ -69,9 +69,13 @@ export class SignInComponent {
    
    showScheduleSelector() {
       this.modalService.showModal(SelectScheduleComponent, {
-         context: {intScheduleID: this.settings.getSetting('intScheduleID')}
+         context: {intScheduleID: this.SelectedSchedule.id}
       }).then(
-         (Schedule) => { this.SelectedSchedule = Schedule; }
+         (result) => { 
+            if (result !== "Cancel") {
+               this.SelectedSchedule = result;
+            }
+         }
       );
    }
    
