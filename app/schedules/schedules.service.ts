@@ -3547,7 +3547,7 @@ export class SchedulesService {
          {
             "ID": "100",
             "Reading": []
-         }
+         },
          {
             "ID": "101",
             "Reading": []
@@ -3943,7 +3943,7 @@ export class SchedulesService {
          {
             "ID": "200",
             "Reading": []
-         }
+         },
          {
             "ID": "201",
             "Reading": []
@@ -4339,7 +4339,7 @@ export class SchedulesService {
          {
             "ID": "300",
             "Reading": []
-         }
+         },
          {
             "ID": "301",
             "Reading": []
@@ -4761,7 +4761,7 @@ export class SchedulesService {
             "Reading": [
                "13004001023",
                "010046013",
-               "13007001005".
+               "13007001005",
                "01046014018",
                "13007030040",
                "01046019025",
@@ -5153,7 +5153,7 @@ export class SchedulesService {
          {
             "ID": "100",
             "Reading": []
-         }
+         },
          {
             "ID": "101",
             "Reading": []
@@ -5549,7 +5549,7 @@ export class SchedulesService {
          {
             "ID": "200",
             "Reading": []
-         }
+         },
          {
             "ID": "201",
             "Reading": []
@@ -5945,7 +5945,7 @@ export class SchedulesService {
          {
             "ID": "300",
             "Reading": []
-         }
+         },
          {
             "ID": "301",
             "Reading": []
